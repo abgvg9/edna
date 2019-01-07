@@ -118,7 +118,7 @@ class species_counter
         //otherwise, pushes the string to the back of the myList
         void push(const string &input)
         {
-          //bool to indicate if the species wasa found
+          //bool to indicate if the species was found
           bool found = false;
 
           //checks myList for if the species is present in myList
