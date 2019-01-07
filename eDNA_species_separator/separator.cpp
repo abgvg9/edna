@@ -1,6 +1,6 @@
 /*
 Programmer: Ari Ginsparg
-Version 0.1
+Version 0.2
 1/7/2019
 Project: Species Separator
 counter.cpp
@@ -8,8 +8,7 @@ counter.cpp
 Purpose: cpp file that contains the necessary code to operate with a modified SpeciesCouner priority queue-like data structure
 The purpose of this program is to take in an alignment file, and separate all sequences into fasta files, separated by species
 
-Note: Current version of program appends all data to files that share the same name as species that occur in the alignment file. It is recommended to remove any existing fasta files from the directory before executing this program.
-The command rm *.fasta will delete all fasta files from the directory.
+Fixed issue with having to perform  rm *.fasta. However, all files that share a file name with the species found will have their contents rewritten upon the execution of this program.
 
 Compilation:
 g++ separator.cpp -std=c++11
@@ -29,13 +28,33 @@ int main()
 
   string species_buffer;
 
-
+  string sampleID = "";
 
 
   while(getline(cin, species_buffer))
   {
 
-	//can pick out species from lines that begin with "Tar"
+  //pick out ID from line starting with "Que", write ID to sampleID
+  if(species_buffer[0] == 'Q' && species_buffer[1] == 'u' && species_buffer[2] == 'e')
+  {
+    //reset sampleID
+    sampleID = "";
+    bool post_carat = false;
+    for(int i = 0; i < species_buffer.size(); i++)
+    {
+      if(species_buffer[i] == '>')
+      {
+        post_carat = true;
+      }
+
+      if(post_carat == true)
+      {
+        sampleID += species_buffer[i];
+      }
+    }
+  }
+
+  //can pick out species from lines that begin with "Tar"
 	if(species_buffer[0] == 'T' && species_buffer[1] == 'a' && species_buffer[2] == 'r')
 	{
 		string species_name = "";
@@ -78,16 +97,30 @@ int main()
 
 		counter.push(species_name);
 
+    string species_name_underscore = species_name;
+
     //change the space to an underscore in the species name for safe file naming conventions
-    for(int i = 0; i < species_name.size(); i++)
+    for(int i = 0; i < species_name_underscore.size(); i++)
     {
-      if(species_name[i] == ' ')
+      if(species_name_underscore[i] == ' ')
       {
-        species_name[i] = '_';
+        species_name_underscore[i] = '_';
       }
     }
 
-    counter.write_sequence(species_name);
+    //determine if this is the first instance of the species
+    bool first_instance = false;
+
+    for(int i = 0; i < counter.size(); i++)
+    {
+      //indicate if this is the first instance of the species for proper file header
+      if(counter[i].get_species() == species_name && counter[i].get_count() == 1)
+      {
+        first_instance = true;
+      }
+    }
+
+    counter.write_sequence(species_name_underscore, sampleID, first_instance);
 	}
 
 

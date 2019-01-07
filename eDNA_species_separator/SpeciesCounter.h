@@ -1,6 +1,6 @@
 /*
 Programmer: Ari Ginsparg
-Version 0.1
+Version 0.2
 1/7/2019
 Project: Species Counter
 SpeciesCounter.h
@@ -115,6 +115,18 @@ class species_counter
 
         } //destructor
 
+        //return the size of the counter
+        int size()
+        {
+          return myList.size();
+        }
+
+        //[] operator overload
+        MyPair operator [] (int &index)
+        {
+          return myList[index];
+        }
+
         //function that takes in a species name
         //checks the myList for if the input species is present
         //if the species is present, increments the count for the species by 1
@@ -151,20 +163,8 @@ class species_counter
         //to be run immediately after push
         //writes the sequences from the alignment file to an output fasta file
         //sequences are grouped by species in their respective fasta file
-        void write_sequence(const string &input)
+        void write_sequence(const string &input, const string &id, const bool first)
         {
-          /*
-          writer.open("example.txt");
-          writer << "test" << endl;
-          writer.close();
-          writer.open("example2.txt");
-          writer << "test2" << endl;
-          writer.close();
-          writer.open("example.txt", ios::app);
-          writer << "test3" << endl;
-          writer.close();
-          string examplename = "cheese";
-          */
 
           //bool to signal to stop reading for the species sequence
           bool stop = false;
@@ -202,11 +202,27 @@ class species_counter
 
           }
 
-          ofstream writer;
-          writer.open(input  + ".fasta", ios::app);
-          writer << ">" << buffer << endl;
-          writer << sequence << endl;
-          writer.close();
+
+
+          //if this is the first occurence of the species in the alignment file, don't append onto a file, otherwise do append
+          if(first == true)
+          {
+            ofstream writer;
+            writer.open(input  + ".fasta");
+            writer << id << endl;
+            writer << sequence << endl;
+            writer.close();
+          }
+          else
+          {
+            ofstream writer;
+            writer.open(input  + ".fasta", ios::app);
+            writer << id << endl;
+            writer << sequence << endl;
+            writer.close();
+          }
+
+
 
         }
 
