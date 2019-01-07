@@ -204,6 +204,7 @@ class species_counter
 
           ofstream writer;
           writer.open(input  + ".fasta", ios::app);
+          writer << ">" << buffer << endl;
           writer << sequence << endl;
           writer.close();
 
