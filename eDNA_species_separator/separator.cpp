@@ -8,6 +8,9 @@ counter.cpp
 Purpose: cpp file that contains the necessary code to operate with a modified SpeciesCouner priority queue-like data structure
 The purpose of this program is to take in an alignment file, and separate all sequences into fasta files, separated by species
 
+Note: Current version of program appends all data to files that share the same name as species that occur in the alignment file. It is recommended to remove any existing fasta files from the directory before executing this program.
+The command rm *.fasta will delete all fasta files from the directory.
+
 Compilation:
 g++ separator.cpp -std=c++11
 
@@ -26,7 +29,7 @@ int main()
 
   string species_buffer;
 
-  
+
 
 
   while(getline(cin, species_buffer))

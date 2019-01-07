@@ -212,12 +212,16 @@ class species_counter
         //prints out the contents of the list, line by line
         void print_list()
         {
+          cout << myList.size() << " unique species were identified." << endl;
           cout << "The species present are as follows:" << endl;
-          cout << "--------------------------------------------------" << endl << endl;
+          cout << "--------------------------------------------------" << endl;
           for(int i = myList.size() - 1; i >= 0; i--)
           {
             cout << myList[i].get_species() << ": " << myList[i].get_count() << endl;
           }
+
+          cout << "--------------------------------------------------" << endl;
+          cout << "Fasta files have been written for all identified species, with sequences segregated per species." << endl;
         }
 
 
