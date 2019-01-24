@@ -1,0 +1,16 @@
+11 unique species were identified.
+The species present are as follows:
+--------------------------------------------------
+Phoxinus erythrogaster: 7724
+Fundulus catenatus: 2671
+Fundulus sciadicus: 896
+Etheostoma microperca: 740
+Campostoma anomalum: 372
+Semotilus atromaculatus: 150
+Fundulus olivaceus: 4
+Ameiurus natalis: 1
+Fundulus notatus: 1
+Notropis telescopus: 1
+Homo sapiens: 1
+--------------------------------------------------
+Fasta files have been written for all identified species, with sequences segregated per species.
