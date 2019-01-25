@@ -120,7 +120,7 @@ int main()
       }
     }
 
-    counter.write_sequence(species_name_underscore, sampleID, first_instance);
+    counter.write_sequence(species_name_underscore, sampleID, first_instance, species_name_underscore);
 	}
 
 

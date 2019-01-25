@@ -163,7 +163,7 @@ class species_counter
         //to be run immediately after push
         //writes the sequences from the alignment file to an output fasta file
         //sequences are grouped by species in their respective fasta file
-        void write_sequence(const string &input, const string &id, const bool first)
+        void write_sequence(const string &input, const string &id, const bool first, const string &species)
         {
 
           //bool to signal to stop reading for the species sequence
@@ -203,13 +203,24 @@ class species_counter
           }
 
 
-
           //if this is the first occurence of the species in the alignment file, don't append onto a file, otherwise do append
           if(first == true)
           {
             ofstream writer;
             writer.open(input  + ".fasta");
-            writer << id << endl;
+
+            //writes the species name into the id
+            for(int k = 0; k < id.size(); k++)
+            {
+              writer << id[k];
+              if(k == 0)
+              {
+                writer << species << " ";
+              }
+            }
+            writer << endl;
+
+            //writer << id << endl;
             writer << sequence << endl;
             writer.close();
           }
@@ -217,7 +228,19 @@ class species_counter
           {
             ofstream writer;
             writer.open(input  + ".fasta", ios::app);
-            writer << id << endl;
+
+            //writes the species name into the id
+            for(int k = 0; k < id.size(); k++)
+            {
+              writer << id[k];
+              if(k == 0)
+              {
+                writer << species << " ";
+              }
+            }
+            writer << endl;
+
+            //writer << id << endl;
             writer << sequence << endl;
             writer.close();
           }
