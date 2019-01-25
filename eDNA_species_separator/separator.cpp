@@ -11,10 +11,10 @@ The purpose of this program is to take in an alignment file, and separate all se
 Fixed issue with having to perform  rm *.fasta. However, all files that share a file name with the species found will have their contents rewritten upon the execution of this program.
 
 Compilation:
-g++ separator.cpp -std=c++11
+g++ separator.cpp -std=c++11 -o separator
 
 Execution:
-./a.out <sample_input.txt
+./separator <sample_input.txt
 
 */
 

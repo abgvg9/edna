@@ -25,6 +25,18 @@ for file in *; do
       mkdir ${file%.*} -v
     fi
 
+    #make the sample fasta files and move them to the new directory
+    for fastafile in *; do
+
+      if [ ${fastafile: -6} == ".fasta" ]
+      then
+
+        ./sampleGen <$fastafile >sample_$fastafile
+        mv sample_$fastafile ${file%.*}
+      fi
+
+    done
+
     #move all fasta files and the results file into the new directory
     mv *.fasta ${file%.*}
     mv results.txt ${file%.*}
