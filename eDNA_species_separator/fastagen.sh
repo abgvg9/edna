@@ -17,10 +17,13 @@ for file in *; do
     echo "Processing" $file
 
     #run a.out executable with given alignment file, output results to a text file
-    ./a.out <$file >results.txt
+    ./separator <$file >results.txt
 
-    #make a new directory based on the name of the file
-    mkdir ${file%.*}
+    if [ ! -e ${file%.*} ]
+    then
+      #make a new directory based on the name of the file
+      mkdir ${file%.*} -v
+    fi
 
     #move all fasta files and the results file into the new directory
     mv *.fasta ${file%.*}
